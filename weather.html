@@ -1,0 +1,134 @@
+<!DOCTYPE html>    
+<meta charset="UTF-8">
+<meta name="published" content="sathya">
+<meta name="description" content="please fill in the below forms and application">
+<meta name="viewport" content="width=device-width initial-scale=1.0">
+<html>
+<head>
+<title>weather calculation</title>
+<style>
+body{
+padding:0;
+margin:0;
+box-sizing:border-box;
+background-image:linear-gradient(red,yellow);
+height:470px;
+}
+.info{
+width:500px;
+height:auto;
+margin:auto;
+margin-top:15%;
+text-align:center;
+border:1px solid violet;
+border-radius:20px;
+box-shadow:5px 5px green;
+top:auto;
+justify-content:center;
+}
+.info h1{
+text-transform:uppercase;
+color:blue;
+}
+.select{
+text-transform:capitalize;
+margin-right:10px;
+color:gold;
+}
+.sel{
+padding:4px 25px;
+text-align:center;
+background-color:black;
+color:gold;
+text-transform:capitalize;
+cursor:pointer;
+}
+button{
+margin-top:20px;
+margin-right:150px;
+padding:3px 30px;
+background-color:green;
+color:yellow;
+text-transform:capitalize;
+cursor:pointer;
+}
+p{
+text-transform:capitalize;
+color:black;
+text-align:center;
+margin-top:35px;
+}
+</style>
+</head>
+<body>
+   
+  <div class="info" id="info">
+          <h1>weather information</h1>
+		 
+	    
+         <label for="city" class="select">choose your city:</label>
+	<select  id="input" class="sel" value="select your city">
+	      
+        <option class="sel1" value="select city">select city</option>
+	      <option class="sel1" value="chennai">chennai</option>
+            <option class="sel1" value="madurai">madurai</option>
+              <option class="sel1" value="thoothukudi">thoothukudi</option>
+                <option class="sel1" value="tirunelveli">tirunelveli</option>
+		           <option class="sel1" value="coimbatore">coimbatore</option>
+		            <option class="sel1" value="Tiruchirappalli">Tiruchirappalli</option>
+		              <option class="sel1" value="chengalpattu">chengalpattu</option>
+		                <option class="sel1" value="kanyakumari">kanyakumari</option>
+						  <option class="sel1" value="salem">salem</option>
+						    
+					
+      </select>
+
+		<button type="submit" id="btn">submit</button>
+		<p>pls select your city and click the submit button then you will see in weather report</p> 
+  
+  <div class="output">
+    <h1 id="cityName"></h1>
+     <h2 id="desc"></h2>
+      <h3 id="temp"></h3>
+       <h4 id ="wind"></h4>
+   </div>
+</div>
+
+<script>
+
+//http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
+ // apy key = 77d6908e3384c1769f9706fc3b98c7d8
+
+var apik = "3045dd712ffe6e702e3245525ac7fa38";
+
+var sel = document.getElementById('input');
+var button = document.getElementById('btn');
+var city = document.getElementById('cityName');
+var desc = document.getElementById('desc');
+var temp = document.getElementById('temp');
+var air = document.getElementById('wind');
+button.addEventListener('click',function(){
+console.log('read');
+   fetch('https://api.openweathermap.org/data/2.5/weather?q='+sel.value+'&appid='+apik)
+   //fetch(http://api.openweathermap.org/geo/1.0/direct?q='+sel.value+'&appid=+API_key)
+   .then(res => res.json())
+   
+   .then(data => {     
+	   var value = data['name']
+	   var descri = data['weather']['0']['description']
+        var temprate = data['main']['temp']
+         var airspd = data['wind']['speed']	
+		 
+     city.innerHTML = `weather is <span> ${value} </span>`
+	 desc.innerHTML = `sky condition is <span> ${descri}</span>`
+	 temp.innerHTML = `temperature of <span> ${temprate}</span>`
+	 air.innerHTML = `air speed is <span> ${airspd}</span>`
+	 
+	 })
+})
+
+</script>
+
+
+</body>
+</html>
